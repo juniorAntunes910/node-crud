@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
-
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
 
 app.set('view engine', 'ejs')//Config ejs
 
@@ -44,5 +45,19 @@ app.post('/produtos', (req, res) => {
 
 app.listen(PORT, () =>{
     console.log("Rodando");
+    
+})
+
+
+
+app.delete('/produtos/:id', (req, res) => {
+    const idDelete = parseInt(req.params.id);
+    produtos = produtos.filter(p => p.id != idDelete);
+
+    res.redirect('/')
+})
+
+
+app.get('/editar/:id', (req, res) => {
     
 })

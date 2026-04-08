@@ -41,7 +41,9 @@
                     </td>
                     <td>
                         <a href="/editar/<%= produto.id %>">Editar</a>
-                        <button>Deletar</button>
+                        <form action="/produtos/<%=produto.id%>?_method=DELETE" method="POST">
+                            <button type="submit" onclick="return confirm('deseja excluir')">Deletar</button>
+                        </form>
                     </td>
                 </tr>
            <% }) %>
