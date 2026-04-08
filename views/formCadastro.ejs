@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+
+<body>
+
+    <h1>Cadastrar novo Produto</h1>
+
+    <form action="/produtos" method="POST">
+        <label>Nome: </label>
+        <input type="text" name="nome" placeholder="Ex: Teclado">
+        
+        <label>Preco: </label>
+        <input type="text" name="preco" placeholder="Ex: 13.22">
+
+        <button type="submit">Salvar Produto</button>
+    </form>
+
+    <a href="/">Voltar para lista</a>
+
+</body>
+
+</html>
