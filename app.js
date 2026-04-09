@@ -6,13 +6,16 @@ app.use(methodOverride("_method"));
 
 app.set("view engine", "ejs"); //Config ejs
 
-let produtos = [
-  { id: 1, nome: "prod1", preco: 144 },
-  { id: 2, nome: "prod2", preco: 1334 },
-];
-
-app.get("/", (req, res) => {
-  res.render("index", { listaProdutos: produtos });
+app.get("/", async (req, res) => {
+  try {
+    const produtosDoBanco = await Prisma.produto.findMany({
+      orderBy: { id: 'asc' }
+    });
+    res.render('index', { listaProdutos: produtosDoBanco})
+  }catch(erro){
+    console.log("Erro ao puxar dados do banco")
+    res.status(500).send("Erro ao buscar")
+  }
 });
 
 app.get("/cadastrar", (req, res) => {
@@ -73,3 +76,19 @@ app.put("/produtos/:id", (req, res) => {
     res.status(404).send("Produto não encontrado");
   }
 });
+
+
+app.post('/produtos', async (req, res) => {
+  const { nome, preco} = req.body;
+
+  try{
+    await Prisma.produto.create({
+      nome: nome,
+      preco: preco
+    });
+    res.redirect('/')
+  }catch(erro){
+    console.log("Erro ao salvar no banco de dados ", erro)
+    res.status(500).send("Erro ao tentar salvar um produto ao banco de dados");
+  }
+})
