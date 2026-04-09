@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+</head>
+<body>
+    <h1>Edição de Produtos</h1>
+
+    <form action="/produtos/<%= produto.id %>?_method=PUT" method="POST">
+        <label>Nome: </label>
+        <input type="text" name="nome" value="<%= produto.nome %>" required>
+        <label>Preço: </label>
+        <input type="number" name="preco" value="<%= produto.preco %>" step="0.01" required>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <a href="/">Voltar para o menu </a>
+</body>
+</html>

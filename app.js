@@ -59,5 +59,30 @@ app.delete('/produtos/:id', (req, res) => {
 
 
 app.get('/editar/:id', (req, res) => {
-    
+    const idEdita = parseInt(req.params.id);
+    produto = produtos.find(p => p.id === idEdita);
+    if(produto){
+        res.render('editar', {produto: produto})
+    }else{
+        res.status(404).send("Produto nao foi encontrado");
+    }
+})
+
+app.put('/produtos/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome, preco} = req.body;
+
+    const index = produtos.findIndex(p => p.id === id)
+
+    if(index !== -1){
+        produtos[index] = {
+            id: id,
+            nome: nome,
+            preco: parseFloat(preco)
+        }
+        res.redirect('/')
+    }else{
+        res.status(404).send('Produto não encontrado')
+    }
+
 })
