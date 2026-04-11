@@ -7,8 +7,10 @@ const { PrismaClient } = require("@prisma/client");
 const { PrismaPg } = require("@prisma/adapter-pg"); // <-- Letra maiúscula corrigida!
 const { Pool } = require("pg");
 
-// Conexão com o banco (Certifique-se de que o .env existe ou coloque a string direta aqui)
-const connectionString = "postgresql://junior:junior@localhost:5456/crud_node?schema=public";
+// Conexão com o banco (.env, Docker -e DATABASE_URL=..., ou fallback local)
+const connectionString =
+  process.env.DATABASE_URL ||
+  "postgresql://junior:junior@localhost:5456/crud_node?schema=public";
 
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
